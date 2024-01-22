@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CommandLineHelper
 {
 	using Data;
+	using Microsoft.EntityFrameworkCore;
 
 	public class Startup
 	{
@@ -34,6 +35,12 @@ namespace CommandLineHelper
 			
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			services.AddScoped<IAppRepo, MockAppRepo>();
+			services.AddDbContext<CommandLineHelperCtx>(AddContextOptions);
+		}
+
+		private void AddContextOptions(DbContextOptionsBuilder options)
+		{
+			options.UseSqlServer(Configuration.GetConnectionString("CommandLineHelperConnection"));
 		}
 
 		/// <summary>
