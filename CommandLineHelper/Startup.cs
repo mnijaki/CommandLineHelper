@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CommandLineHelper
 {
+	using Data;
+
 	public class Startup
 	{
 		public IConfiguration Configuration { get; }
@@ -19,11 +21,19 @@ namespace CommandLineHelper
 		///   This method gets called by the runtime.
 		///   Use this method to add services to the container.
 		///   Add services that will be used by your application here.
+		///
+		///   You can treat this method as a dependency injection container (similar to Zenject in Unity).
 		/// </summary>
 		/// <param name="services"></param>
 		public void ConfigureServices(IServiceCollection services)
 		{
+			// Possible service injection types:
+			// Singleton: A single instance of the service will be created.
+			// Scoped: A new instance of the service will be created once per request.
+			// Transient: A new instance of the service will be created every time it is requested.
+			
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddScoped<IAppRepo, MockAppRepo>();
 		}
 
 		/// <summary>

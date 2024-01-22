@@ -6,13 +6,13 @@ namespace CommandLineHelper.Data
 	/// <summary>
 	///   Mock repository for testing.
 	/// </summary>
-	public class MockAppRepo
+	public class MockAppRepo : IAppRepo
 	{
 		/// <summary>
 		///   Get a list of commands.
 		/// </summary>
 		/// <returns>List of commands</returns>
-		public IEnumerable<Command> GetAppCommands()
+		public IEnumerable<Command> GetCommands()
 		{
 			List<Command> commands = new List<Command>
 			{
@@ -30,7 +30,7 @@ namespace CommandLineHelper.Data
 		/// </summary>
 		/// <param name="id">Id of command</param>
 		/// <returns>Command of given ID</returns>
-		public Command GetAppCommand(int id)
+		public Command GetCommand(int id)
 		{
 			return new Command { Id = 0, Description = "Change directory", CommandLine = "CD", Platform = "PC"};
 		}
