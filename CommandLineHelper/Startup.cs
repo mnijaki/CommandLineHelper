@@ -8,6 +8,7 @@ namespace CommandLineHelper
 {
 	using Data;
 	using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Hosting;
 
 	public class Startup
 	{
@@ -32,8 +33,8 @@ namespace CommandLineHelper
 			// Singleton: A single instance of the service will be created.
 			// Scoped: A new instance of the service will be created once per request.
 			// Transient: A new instance of the service will be created every time it is requested.
-			
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddAuthorization();
+			services.AddRazorPages();
 			services.AddScoped<IRepo, SqlRepo>();
 			services.AddDbContext<Ctx>(AddCtxOptions);
 		}
@@ -56,19 +57,30 @@ namespace CommandLineHelper
 		/// </summary>
 		/// <param name="app"></param>
 		/// <param name="env"></param>
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			if(env.IsDevelopment())
+			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
 			else
 			{
+				app.UseExceptionHandler("/Error");
 				app.UseHsts();
 			}
 
 			app.UseHttpsRedirection();
-			app.UseMvc();
+			app.UseStaticFiles();
+
+			app.UseRouting();
+
+			app.UseAuthorization();
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapRazorPages();
+				endpoints.MapControllers();
+			});
 		}
 	}
 }
