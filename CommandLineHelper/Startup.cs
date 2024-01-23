@@ -34,11 +34,11 @@ namespace CommandLineHelper
 			// Transient: A new instance of the service will be created every time it is requested.
 			
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-			services.AddScoped<IAppRepo, MockAppRepo>();
-			services.AddDbContext<CommandLineHelperCtx>(AddContextOptions);
+			services.AddScoped<IRepo, SqlRepo>();
+			services.AddDbContext<Ctx>(AddCtxOptions);
 		}
 
-		private void AddContextOptions(DbContextOptionsBuilder options)
+		private void AddCtxOptions(DbContextOptionsBuilder options)
 		{
 			options.UseSqlServer(Configuration.GetConnectionString("CommandLineHelperConnection"));
 		}

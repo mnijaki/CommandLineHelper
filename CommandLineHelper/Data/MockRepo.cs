@@ -6,7 +6,7 @@ namespace CommandLineHelper.Data
 	/// <summary>
 	///   Mock repository for testing.
 	/// </summary>
-	public class MockAppRepo : IAppRepo
+	public class MockRepo : IRepo
 	{
 		/// <summary>
 		///   Get a list of commands.

@@ -13,9 +13,9 @@ namespace CommandLineHelper.Controllers
 		// dotnet run --project CommandLineHelper
 		// in terminal to run this project.
 		
-		private readonly IAppRepo _repo;
+		private readonly IRepo _repo;
 
-		public CommandsController(IAppRepo repo)
+		public CommandsController(IRepo repo)
 		{
 			_repo = repo;
 		}

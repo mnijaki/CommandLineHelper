@@ -3,7 +3,7 @@ namespace CommandLineHelper.Data
 	using Microsoft.EntityFrameworkCore;
 	using Models;
 
-	public class CommandLineHelperCtx : DbContext
+	public class Ctx : DbContext
 	{
 		// Explanation of DbSet:
 		// Represent our Command objects (model) down to database as DBSet called Commands.
@@ -13,7 +13,7 @@ namespace CommandLineHelper.Data
 		// Each model in the app must have a DbSet representation to be included in the database.
 		public DbSet<Command> Commands { get; set; }
 		
-		public CommandLineHelperCtx(DbContextOptions<CommandLineHelperCtx> options) : base(options)
+		public Ctx(DbContextOptions<Ctx> options) : base(options)
 		{
 		}
 	}

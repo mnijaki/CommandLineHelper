@@ -3,14 +3,16 @@ using CommandLineHelper.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CommandLineHelper.Migrations
 {
     [DbContext(typeof(Ctx))]
-    partial class CommandLineHelperCtxModelSnapshot : ModelSnapshot
+    [Migration("20240123123519_ChangeOfMockRepoToSqlRepo")]
+    partial class ChangeOfMockRepoToSqlRepo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
