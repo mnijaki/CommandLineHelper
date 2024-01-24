@@ -34,5 +34,15 @@ namespace CommandLineHelper.Data
 		{
 			return new Command { Id = 0, Description = "Change directory", CommandLine = "CD", Platform = "PC"};
 		}
+
+		public void CreateCommand(Command command)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public bool SaveChanges()
+		{
+			throw new System.NotImplementedException();
+		}
 	}
 }

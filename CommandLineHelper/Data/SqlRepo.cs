@@ -22,5 +22,20 @@ namespace CommandLineHelper.Data
 		{
 			return _ctx.Commands.FirstOrDefault(c => c.Id == ID);
 		}
+
+		public void CreateCommand(Command command)
+		{
+			if(command == null)
+			{
+				throw new System.ArgumentNullException(nameof(command));
+			}
+
+			_ctx.Commands.Add(command);
+		}
+
+		public bool SaveChanges()
+		{
+			return (_ctx.SaveChanges() >= 0);
+		}
 	}
 }

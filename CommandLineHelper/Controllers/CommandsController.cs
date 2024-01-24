@@ -25,14 +25,14 @@ namespace CommandLineHelper.Controllers
 		}
 		
 		[HttpGet]
-		public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands()
+		public ActionResult<IEnumerable<CommandReadDto>> GetCommands()
 		{
 			IEnumerable<Command> commands = _repo.GetCommands();
 			IEnumerable<CommandReadDto> commandsReadDtos = _mapper.Map<IEnumerable<CommandReadDto>>(commands);
 			return new OkObjectResult(commandsReadDtos);
 		}
 
-		[HttpGet("{id}")]
+		[HttpGet("{id}", Name = "GetCommand")]
 		public ActionResult<CommandReadDto> GetCommand(int id)
 		{
 			Command command = _repo.GetCommand(id);
@@ -44,5 +44,30 @@ namespace CommandLineHelper.Controllers
 			CommandReadDto commandReadDto = _mapper.Map<CommandReadDto>(command);
 			return new OkObjectResult(commandReadDto);
 		}
+		
+		[HttpPost] 
+		public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
+		{
+			Command command = _mapper.Map<Command>(commandCreateDto);
+			_repo.CreateCommand(command);
+			_repo.SaveChanges();
+			
+			CommandReadDto commandReadDto = _mapper.Map<CommandReadDto>(command);
+			return new CreatedAtRouteResult(nameof(GetCommand), new {Id = commandReadDto.Id}, commandReadDto);
+		}
+		
+		// [HttpPost]
+		// public ActionResult UpdateCommand(int id, CommandUpdateDto commandUpdateDto)
+		// {
+		// 	Command command = _repo.GetCommand(id);
+		// 	if(command == null)
+		// 	{
+		// 		return new NotFoundResult();
+		// 	}
+		//
+		// 	_mapper.Map(commandUpdateDto, command);
+		// 	_repo.SaveChanges();
+		// 	return new NoContentResult();
+		// }
 	}
 }

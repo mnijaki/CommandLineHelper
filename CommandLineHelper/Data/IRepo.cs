@@ -6,6 +6,11 @@ namespace CommandLineHelper.Data
 	public interface IRepo
 	{
 		IEnumerable<Command> GetCommands();
+		
 		Command GetCommand(int ID);
+		
+		void CreateCommand(Command command);
+		
+		bool SaveChanges();
 	}
 }
