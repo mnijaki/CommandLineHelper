@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CommandLineHelper
 {
+	using System;
 	using Data;
 	using Microsoft.EntityFrameworkCore;
 	using Microsoft.Extensions.Hosting;
@@ -37,6 +38,7 @@ namespace CommandLineHelper
 			services.AddRazorPages();
 			services.AddScoped<IRepo, SqlRepo>();
 			services.AddDbContext<Ctx>(AddCtxOptions);
+			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 		}
 
 		private void AddCtxOptions(DbContextOptionsBuilder options)
