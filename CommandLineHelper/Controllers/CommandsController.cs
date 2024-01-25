@@ -11,10 +11,6 @@ namespace CommandLineHelper.Controllers
 	[Route("api/[controller]")]
 	public class CommandsController
 	{
-		// Use:
-		// dotnet run --project CommandLineHelper
-		// in terminal to run this project.
-		
 		private readonly IRepo _repo;
 		private readonly IMapper _mapper;
 
@@ -28,6 +24,7 @@ namespace CommandLineHelper.Controllers
 		public ActionResult<IEnumerable<CommandReadDto>> GetCommands()
 		{
 			IEnumerable<Command> commands = _repo.GetCommands();
+			// Create an object of type "IEnumerable<CommandReadDto>" from the "commands" object.
 			IEnumerable<CommandReadDto> commandsReadDtos = _mapper.Map<IEnumerable<CommandReadDto>>(commands);
 			return new OkObjectResult(commandsReadDtos);
 		}
@@ -41,6 +38,7 @@ namespace CommandLineHelper.Controllers
 				return new NotFoundResult();
 			}
 			
+			// Create an object of type "CommandReadDto" from the "command" object.
 			CommandReadDto commandReadDto = _mapper.Map<CommandReadDto>(command);
 			return new OkObjectResult(commandReadDto);
 		}
@@ -48,26 +46,36 @@ namespace CommandLineHelper.Controllers
 		[HttpPost] 
 		public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
 		{
+			// Create an object of type "Command" from the "commandCreateDto" object.
 			Command command = _mapper.Map<Command>(commandCreateDto);
 			_repo.CreateCommand(command);
 			_repo.SaveChanges();
 			
+			// Create an object of type "CommandReadDto" from the "command" object.
 			CommandReadDto commandReadDto = _mapper.Map<CommandReadDto>(command);
 			return new CreatedAtRouteResult(nameof(GetCommand), new {Id = commandReadDto.Id}, commandReadDto);
 		}
 		
-		// [HttpPost]
-		// public ActionResult UpdateCommand(int id, CommandUpdateDto commandUpdateDto)
-		// {
-		// 	Command command = _repo.GetCommand(id);
-		// 	if(command == null)
-		// 	{
-		// 		return new NotFoundResult();
-		// 	}
-		//
-		// 	_mapper.Map(commandUpdateDto, command);
-		// 	_repo.SaveChanges();
-		// 	return new NoContentResult();
-		// }
+		[HttpPut("{id}")]
+		public IActionResult UpdateCommand(int id, CommandUpdateDto commandUpdateDto)
+		{
+			Command command = _repo.GetCommand(id);
+			if(command == null)
+			{
+				return new NotFoundResult();
+			}
+		
+			// Map the values from "commandUpdateDto" object to "command" object.
+			// This will automatically update the "command" object with the values from "commandUpdateDto".
+			// Context will track the changes and update the database when "SaveChanges()" is called.
+			_mapper.Map(commandUpdateDto, command);
+			// For SQL Server, this is not needed.
+			// We invoke "UpdateCommand", so in case we would have other implementations of "IRepo" 
+			// (that does not automatically track changes), we would still be able to update the command.
+			_repo.UpdateCommand(command);
+			_repo.SaveChanges();
+			
+			return new NoContentResult();
+		}
 	}
 }

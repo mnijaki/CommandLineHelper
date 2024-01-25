@@ -33,6 +33,11 @@ namespace CommandLineHelper.Data
 			_ctx.Commands.Add(command);
 		}
 
+		public void UpdateCommand(Command command)
+		{
+			// This method is empty because the Context class is tracking the changes on the model for Sql.
+		}
+
 		public bool SaveChanges()
 		{
 			return (_ctx.SaveChanges() >= 0);

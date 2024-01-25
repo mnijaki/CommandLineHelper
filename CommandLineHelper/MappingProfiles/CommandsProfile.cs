@@ -11,7 +11,7 @@ namespace CommandLineHelper.MappingProfiles
 			// Source -> Target
 			CreateMap<Command, CommandReadDto>();
 			CreateMap<CommandCreateDto, Command>();
-			//CreateMap<Dtos.CommandUpdateDto, Models.Command>();
+			CreateMap<CommandUpdateDto, Command>();
 			//CreateMap<Models.Command, Dtos.CommandUpdateDto>();
 		}
 	}
