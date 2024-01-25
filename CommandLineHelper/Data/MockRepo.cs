@@ -45,6 +45,11 @@ namespace CommandLineHelper.Data
 			throw new System.NotImplementedException();
 		}
 
+		public void DeleteCommand(Command command)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public bool SaveChanges()
 		{
 			throw new System.NotImplementedException();

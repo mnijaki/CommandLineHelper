@@ -58,7 +58,7 @@ namespace CommandLineHelper.Controllers
 		}
 		
 		[HttpPut("{id}")]
-		public IActionResult FullUpdateCommand(int id, CommandUpdateDto commandUpdateDto)
+		public ActionResult FullUpdateCommand(int id, CommandUpdateDto commandUpdateDto)
 		{
 			Command command = _repo.GetCommand(id);
 			if(command == null)
@@ -80,7 +80,7 @@ namespace CommandLineHelper.Controllers
 		}
 		
 		[HttpPatch("{id}")]
-		public IActionResult PartialUpdateCommand(int id, JsonPatchDocument<CommandUpdateDto> patchDocument)
+		public ActionResult PartialUpdateCommand(int id, JsonPatchDocument<CommandUpdateDto> patchDocument)
 		{
 			Command command = _repo.GetCommand(id);
 			if(command == null)
@@ -106,6 +106,21 @@ namespace CommandLineHelper.Controllers
 			// We invoke "UpdateCommand", so in case we would have other implementations of "IRepo" 
 			// (that does not automatically track changes), we would still be able to update the command.
 			_repo.UpdateCommand(command);
+			_repo.SaveChanges();
+			
+			return NoContent();
+		}
+		
+		[HttpDelete("{id}")]
+		public ActionResult DeleteCommand(int id)
+		{
+			Command command = _repo.GetCommand(id);
+			if(command == null)
+			{
+				return NotFound();
+			}
+			
+			_repo.DeleteCommand(command);
 			_repo.SaveChanges();
 			
 			return NoContent();

@@ -35,7 +35,22 @@ namespace CommandLineHelper.Data
 
 		public void UpdateCommand(Command command)
 		{
+			if(command == null)
+			{
+				throw new System.ArgumentNullException(nameof(command));
+			}
+			
 			// This method is empty because the Context class is tracking the changes on the model for Sql.
+		}
+
+		public void DeleteCommand(Command command)
+		{
+			if(command == null)
+			{
+				throw new System.ArgumentNullException(nameof(command));
+			}
+
+			_ctx.Commands.Remove(command);
 		}
 
 		public bool SaveChanges()

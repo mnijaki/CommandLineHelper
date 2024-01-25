@@ -13,6 +13,8 @@ namespace CommandLineHelper.Data
 		
 		void UpdateCommand(Command command);
 		
+		void DeleteCommand(Command command);
+		
 		bool SaveChanges();
 	}
 }
