@@ -12,7 +12,7 @@ namespace CommandLineHelper.MappingProfiles
 			CreateMap<Command, CommandReadDto>();
 			CreateMap<CommandCreateDto, Command>();
 			CreateMap<CommandUpdateDto, Command>();
-			//CreateMap<Models.Command, Dtos.CommandUpdateDto>();
+			CreateMap<Command, CommandUpdateDto>();
 		}
 	}
 }

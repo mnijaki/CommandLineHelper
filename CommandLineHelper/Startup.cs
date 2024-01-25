@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace CommandLineHelper
+﻿namespace CommandLineHelper
 {
 	using System;
 	using Data;
+	using Microsoft.AspNetCore.Builder;
+	using Microsoft.AspNetCore.Hosting;
+	using Microsoft.AspNetCore.Mvc;
 	using Microsoft.EntityFrameworkCore;
+	using Microsoft.Extensions.Configuration;
+	using Microsoft.Extensions.DependencyInjection;
 	using Microsoft.Extensions.Hosting;
+	using Newtonsoft.Json.Serialization;
 
 	public class Startup
 	{
@@ -34,16 +34,24 @@ namespace CommandLineHelper
 			// Singleton: A single instance of the service will be created.
 			// Scoped: A new instance of the service will be created once per request.
 			// Transient: A new instance of the service will be created every time it is requested.
+			
+			
 			services.AddAuthorization();
 			services.AddRazorPages();
 			services.AddScoped<IRepo, SqlRepo>();
-			services.AddDbContext<Ctx>(AddCtxOptions);
+			services.AddDbContext<Ctx>(ConfigureDbContextOptions);
 			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+			services.AddControllers().AddNewtonsoftJson(ConfigureNewtonsoftJSONOptions);
 		}
 
-		private void AddCtxOptions(DbContextOptionsBuilder options)
+		private void ConfigureDbContextOptions(DbContextOptionsBuilder options)
 		{
 			options.UseSqlServer(Configuration.GetConnectionString("CommandLineHelperConnection"));
+		}
+
+		private static void ConfigureNewtonsoftJSONOptions(MvcNewtonsoftJsonOptions option)
+		{
+			option.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 		}
 
 		/// <summary>
