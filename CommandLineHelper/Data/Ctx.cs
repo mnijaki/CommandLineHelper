@@ -6,7 +6,7 @@ namespace CommandLineHelper.Data
 	public class Ctx : DbContext
 	{
 		// Explanation of DbSet:
-		// Represent our Command objects (model) down to database as DBSet called Commands.
+		// Representation of Command objects(model) for Database in form of DBSets of given type (eg. Command).
 		// DbSet is a collection of entities of a given type.
 		// DbSet is a property of DbContext.
 		// DbSet is used to perform CRUD operations on entities.

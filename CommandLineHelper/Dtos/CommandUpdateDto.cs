@@ -2,6 +2,8 @@ namespace CommandLineHelper.Dtos
 {
 	using System.ComponentModel.DataAnnotations;
 
+	// It should NOT have "ID" field.
+	// It should have attributes with restrictions.
 	public class CommandUpdateDto
 	{
 		[Required]

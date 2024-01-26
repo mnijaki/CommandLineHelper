@@ -1,5 +1,6 @@
 namespace CommandLineHelper.Dtos
 {
+	// It should NOT have attributes with restrictions.
 	public class CommandReadDto
 	{
 		public int Id { get; set; }

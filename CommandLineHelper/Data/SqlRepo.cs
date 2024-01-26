@@ -20,7 +20,7 @@ namespace CommandLineHelper.Data
 
 		public Command GetCommand(int ID)
 		{
-			return _ctx.Commands.FirstOrDefault(c => c.Id == ID);
+			return _ctx.Commands.FirstOrDefault(command => command.Id == ID);
 		}
 
 		public void CreateCommand(Command command)

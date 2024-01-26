@@ -47,6 +47,14 @@ namespace CommandLineHelper.Controllers
 		[HttpPost] 
 		public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
 		{
+			// Create method in Controller should return 201 status instead of standard 200.
+			// It will inform that record was created sucessfully and it will aslo return URI to resource.
+			// Use existing action to return URI to created resource.
+			// It is usually "Get...(ID)" method.
+			// You need to add name to "Get...(ID)" method attribute, so you can reference it from "Create...()" method:
+			// Eg: [HttpGet("{id}", Name = "GetCommand")]
+			// Your CreateCommand method in Controller must return "CreatedAtRoute()" method to add URI to created resource.
+			
 			// Create an object of type "Command" from the "commandCreateDto" object.
 			Command command = _mapper.Map<Command>(commandCreateDto);
 			_repo.CreateCommand(command);
@@ -60,6 +68,8 @@ namespace CommandLineHelper.Controllers
 		[HttpPut("{id}")]
 		public ActionResult FullUpdateCommand(int id, CommandUpdateDto commandUpdateDto)
 		{
+			// Update should return 204 (NoContent) status code.
+			
 			Command command = _repo.GetCommand(id);
 			if(command == null)
 			{
@@ -82,6 +92,8 @@ namespace CommandLineHelper.Controllers
 		[HttpPatch("{id}")]
 		public ActionResult PartialUpdateCommand(int id, JsonPatchDocument<CommandUpdateDto> patchDocument)
 		{
+			// Update should return 204 (NoContent) status code.
+			
 			Command command = _repo.GetCommand(id);
 			if(command == null)
 			{
@@ -114,6 +126,8 @@ namespace CommandLineHelper.Controllers
 		[HttpDelete("{id}")]
 		public ActionResult DeleteCommand(int id)
 		{
+			// Delete should return 204 (NoContent) status code.
+			
 			Command command = _repo.GetCommand(id);
 			if(command == null)
 			{
